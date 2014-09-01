@@ -1,5 +1,6 @@
 stream = require 'stream'
-StreamParser = require './stream-parser'
+Lazy = require 'lazy'
+# StreamParser = require './stream-parser'
 
 module.exports =
 class Parser
@@ -12,7 +13,8 @@ class Parser
       @push(null)
 
     stringStream._read(code)
-    stringStream.pipe new StreamParser(@delegate)
+    @parseStream(stringStream)
 
-  parseStream: (stream) ->
-    
+  parseStream: (stream) =>
+    new Lazy(stream).lines.forEach (line) =>
+      console.log line.toString()
