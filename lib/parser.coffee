@@ -13,3 +13,6 @@ class Parser
 
     stringStream._read(code)
     stringStream.pipe new StreamParser(@delegate)
+
+  parseStream: (stream) ->
+    
