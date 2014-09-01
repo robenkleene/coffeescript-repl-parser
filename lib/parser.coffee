@@ -17,4 +17,6 @@ class Parser
 
   parseStream: (stream) =>
     new Lazy(stream).lines.forEach (line) =>
-      console.log line.toString()
+      code = line.toString()
+      @delegate.handleCodeBlock(code)
+      # console.log line.toString()
