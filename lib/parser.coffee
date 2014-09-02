@@ -5,8 +5,6 @@ LineStream = require './line-stream'
 
 module.exports =
 class Parser
-  MATCH_START_CODE_BLOCK = /^(?!\s)./
-  MATCH_EMPTY_LINE = /^\s*/
   constructor: (@delegate) ->
 
   parse: (code) =>

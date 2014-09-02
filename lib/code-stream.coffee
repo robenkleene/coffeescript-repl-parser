@@ -3,6 +3,7 @@ stream = require 'stream'
 module.exports =
 class StreamParser extends stream.Writable
   MATCH_START_CODE_BLOCK = /^(?!\s)./
+  MATCH_EMPTY_LINE = /^\s*$/
 
   constructor: (@delegate) ->
     super
@@ -10,13 +11,15 @@ class StreamParser extends stream.Writable
 
   _write: (chunk, enc, next) ->
     code = chunk.toString()
-    console.log code
-    # TODO skip blank lines
+
+    if code.match(MATCH_EMPTY_LINE)
+      next()
+      return
 
     if code.match(MATCH_START_CODE_BLOCK)
-      @delegate.handleCodeBlock(@currentCodeBlock)
+      if @currentCodeBlock.length > 0
+        @delegate.handleCodeBlock(@currentCodeBlock)
       @currentCodeBlock = ""
-    else
-      @currentCodeBlock.concat code
 
+    @currentCodeBlock = @currentCodeBlock + code + "\n"
     next()
