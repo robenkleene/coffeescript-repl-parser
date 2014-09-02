@@ -4,6 +4,8 @@ Lazy = require 'lazy'
 
 module.exports =
 class Parser
+  MATCH_START_CODE_BLOCK = /^(?!\s)./
+  MATCH_EMPTY_LINE = /^\s*/
   constructor: (@delegate) ->
 
   parse: (code) =>
@@ -17,6 +19,12 @@ class Parser
 
   parseStream: (stream) =>
     new Lazy(stream).lines.forEach (line) =>
-      code = line.toString()
-      @delegate.handleCodeBlock(code)
+      if line.MATCH_EMPTY_LINE
+        return
+      # console.log line.toString('utf8')
+      console.log line.toString()
+      # console.log  line
+      # console.log  line.length
+      # code = line.toString()
+      # @delegate.handleCodeBlock(code)
       # console.log line.toString()
