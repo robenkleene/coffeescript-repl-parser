@@ -1,7 +1,4 @@
 {
   "name": "coffeescript-repl-parser",
-  "version": "0.0.0",
-  "dependencies": {
-    "lazy": "~1.0.11"
-  }
+  "version": "0.0.0"
 }
